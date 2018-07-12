@@ -1,10 +1,11 @@
 ﻿using ApplicationCore.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -17,6 +18,8 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
             builder.Entity<Basket>(ConfigureBasket);
             builder.Entity<Product>(ConfigureProduct);
             builder.Entity<ProductType>(ConfigureProductType);
@@ -24,8 +27,19 @@ namespace Infrastructure
 
         private void ConfigureBasket(EntityTypeBuilder<Basket> builder)
         {
+            builder.HasKey(p => p.Id);
+
             var navigation = builder.Metadata.FindNavigation(nameof(Basket.Items));
             navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
+        }
+
+        private void ConfigureBasketItem(EntityTypeBuilder<BasketItem> builder)
+        {
+            builder.HasKey(p => p.Id);
+
+            builder.HasOne(p => p.Product)
+                .WithMany()
+                .HasForeignKey(p => p.ProductId);
         }
 
         private void ConfigureProduct(EntityTypeBuilder<Product> builder)

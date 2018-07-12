@@ -17,6 +17,11 @@ namespace Infrastructure
             return await _dbContext.Baskets.Include(b => b.Items).SingleOrDefaultAsync(b => b.Id == basketId);
         }
 
+        public async Task<Basket> GetByUserName(string userName)
+        {
+            return await _dbContext.Baskets.Include(b => b.Items).SingleOrDefaultAsync(b => b.UserId == userName);
+        }
+
         public async Task AddAsync(Basket basket)
         {
             _dbContext.Baskets.Add(basket);

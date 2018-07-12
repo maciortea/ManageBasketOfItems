@@ -7,9 +7,10 @@ namespace ApplicationCore.Entities
 {
     public class Basket : BaseEntity
     {
-        //public string BuyerId { get; set; }
         private readonly List<BasketItem> _items = new List<BasketItem>();
         public IReadOnlyCollection<BasketItem> Items => _items.AsReadOnly();
+
+        public string UserId { get; set; }
 
         public Basket()
         {

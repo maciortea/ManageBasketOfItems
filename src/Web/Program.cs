@@ -2,6 +2,7 @@
 using Infrastructure;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -21,7 +22,8 @@ namespace Web
                 try
                 {
                     var timeoutDbContext = services.GetRequiredService<ApplicationDbContext>();
-                    ApplicationDbContextSeed.SeedAsync(timeoutDbContext, loggerFactory).Wait();
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    ApplicationDbContextSeed.SeedAsync(timeoutDbContext, userManager, loggerFactory).Wait();
                 }
                 catch (Exception ex)
                 {

@@ -7,7 +7,8 @@ namespace ApplicationCore.Interfaces
 {
     public interface IBasketService
     {
-        Task<Result<Basket>> GetBasket(int basketId);
+        Task<Result<Basket>> GetBasketById(int basketId);
+        Task<Basket> GetBasketByUserName(string userName);
         Task<Result<IReadOnlyCollection<BasketItem>>> GetBasketItems(int basketId);
         Task<Result> AddItemToBasket(int basketId, int productId, int quantity, decimal unitPrice);
         Task<Result> RemoveItemFromBasket(int basketId, int basketItemId);

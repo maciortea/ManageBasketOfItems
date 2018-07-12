@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -9,15 +10,23 @@ namespace Infrastructure
 {
     public class ApplicationDbContextSeed
     {
-        public static async Task SeedAsync(ApplicationDbContext dbContext, ILoggerFactory loggerFactory)
+        public static async Task SeedAsync(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, ILoggerFactory loggerFactory)
         {
             try
             {
-                if (!dbContext.Baskets.Any())
+                var defaultUser = new ApplicationUser
                 {
-                    dbContext.Baskets.Add(new Basket());
-                    await dbContext.SaveChangesAsync();
-                }
+                    UserName = "marian_test@yahoo.com",
+                    Email = "marian_test@yahoo.com"
+                };
+
+                await userManager.CreateAsync(defaultUser, "Pass@word1");
+
+                //if (!dbContext.Baskets.Any())
+                //{
+                //    dbContext.Baskets.Add(new Basket { UserId = "marian_test@yahoo.com" });
+                //    await dbContext.SaveChangesAsync();
+                //}
 
                 if (!dbContext.ProductTypes.Any())
                 {
@@ -36,7 +45,6 @@ namespace Infrastructure
                 var log = loggerFactory.CreateLogger<ApplicationDbContextSeed>();
                 log.LogError(ex.Message);
             }
-            
         }
 
         private static IEnumerable<ProductType> GetDefaultProductTypes()

@@ -37,6 +37,8 @@ namespace ApplicationCore.Entities
             }
         }
 
+        public Product Product { get; set; }
+
         public void ChangeQuantity(int quantity)
         {
             Quantity = quantity;

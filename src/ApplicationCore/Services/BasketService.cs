@@ -19,7 +19,7 @@ namespace ApplicationCore.Services
             _basketRepository = basketRepository;
         }
 
-        public async Task<Result<Basket>> GetBasket(int basketId)
+        public async Task<Result<Basket>> GetBasketById(int basketId)
         {
             Basket basket = await _basketRepository.GetByIdAsync(basketId);
             if (basket == null)
@@ -30,6 +30,11 @@ namespace ApplicationCore.Services
             }
 
             return Result.Ok(basket);
+        }
+
+        public async Task<Basket> GetBasketByUserName(string userName)
+        {
+            return await _basketRepository.GetByUserName(userName);
         }
 
         public async Task<Result<IReadOnlyCollection<BasketItem>>> GetBasketItems(int basketId)

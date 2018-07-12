@@ -4,11 +4,14 @@ using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using AutoMapper;
 using CSharpFunctionalExtensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 
 namespace Web.Controllers.Api
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/basket/items")]
     [ApiController]
     public class BasketItemController : ControllerBase
