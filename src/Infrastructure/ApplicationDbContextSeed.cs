@@ -2,16 +2,41 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    public static class ApplicationDbContextSeed
+    public class ApplicationDbContextSeed
     {
         public static async Task SeedAsync(ApplicationDbContext dbContext, ILoggerFactory loggerFactory)
         {
+            try
+            {
+                if (!dbContext.Baskets.Any())
+                {
+                    dbContext.Baskets.Add(new Basket());
+                    await dbContext.SaveChangesAsync();
+                }
 
+                if (!dbContext.ProductTypes.Any())
+                {
+                    dbContext.ProductTypes.AddRange(GetDefaultProductTypes());
+                    await dbContext.SaveChangesAsync();
+                }
+
+                if (!dbContext.Products.Any())
+                {
+                    dbContext.Products.AddRange(GetDefaultProducts());
+                    await dbContext.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                var log = loggerFactory.CreateLogger<ApplicationDbContextSeed>();
+                log.LogError(ex.Message);
+            }
+            
         }
 
         private static IEnumerable<ProductType> GetDefaultProductTypes()

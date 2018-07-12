@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ApplicationCore.Common;
+using CSharpFunctionalExtensions;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ApplicationCore.Entities
@@ -24,23 +26,26 @@ namespace ApplicationCore.Entities
                     Quantity = quantity,
                     UnitPrice = unitPrice
                 });
-                return;
             }
-
-            BasketItem existingItem = _items.First(i => i.ProductId == productId);
-            int newQuantity = existingItem.Quantity + quantity;
-            existingItem.ChangeQuantity(newQuantity);
+            else
+            {
+                BasketItem existingItem = _items.First(i => i.ProductId == productId);
+                int newQuantity = existingItem.Quantity + quantity;
+                existingItem.ChangeQuantity(newQuantity);
+            }
         }
 
-        public void RemoveItem(int itemId)
+        public Result RemoveItem(int itemId)
         {
             BasketItem item = _items.FirstOrDefault(i => i.Id == itemId);
             if (item == null)
             {
-                // throw exception
+                var message = string.Format(ErrorMessage.BasketItemDoesntExists, itemId);
+                return Result.Fail(message);
             }
 
             _items.Remove(item);
+            return Result.Ok();
         }
 
         public void Clear()

@@ -14,7 +14,7 @@ namespace Infrastructure
 
         public async Task<Basket> GetByIdAsync(int basketId)
         {
-            return await _dbContext.Baskets.FindAsync(basketId);
+            return await _dbContext.Baskets.Include(b => b.Items).SingleOrDefaultAsync(b => b.Id == basketId);
         }
 
         public async Task AddAsync(Basket basket)
