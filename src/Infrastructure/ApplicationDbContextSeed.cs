@@ -22,12 +22,6 @@ namespace Infrastructure
 
                 await userManager.CreateAsync(defaultUser, "Pass@word1");
 
-                //if (!dbContext.Baskets.Any())
-                //{
-                //    dbContext.Baskets.Add(new Basket { UserId = "marian_test@yahoo.com" });
-                //    await dbContext.SaveChangesAsync();
-                //}
-
                 if (!dbContext.ProductTypes.Any())
                 {
                     dbContext.ProductTypes.AddRange(GetDefaultProductTypes());

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using ApplicationCore.Interfaces;
 using Infrastructure;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +10,6 @@ using Web.Models;
 
 namespace Web.Controllers.Api
 {
-    [Authorize]
     [Route("api/account")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -34,7 +32,6 @@ namespace Web.Controllers.Api
         }
 
         [HttpPost("register")]
-        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
@@ -52,7 +49,6 @@ namespace Web.Controllers.Api
         }
 
         [HttpPost("token")]
-        [AllowAnonymous]
         public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)
         {
             if (!ModelState.IsValid)

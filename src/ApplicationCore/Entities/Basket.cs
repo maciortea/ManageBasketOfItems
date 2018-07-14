@@ -41,7 +41,7 @@ namespace ApplicationCore.Entities
             BasketItem item = _items.FirstOrDefault(i => i.Id == itemId);
             if (item == null)
             {
-                var message = string.Format(ErrorMessage.BasketItemDoesntExists, itemId);
+                var message = string.Format(ErrorMessage.BasketWithItemIdDoesntExists, itemId);
                 return Result.Fail(message);
             }
 

@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Web.Services;
 
 namespace Web
 {
@@ -49,6 +50,7 @@ namespace Web
             services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
             services.AddScoped(typeof(IBasketItemRepository), typeof(BasketItemRepository));
             services.AddScoped(typeof(IBasketService), typeof(BasketService));
+            services.AddScoped(typeof(IBasketViewModelService), typeof(BasketViewModelService));
 
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 

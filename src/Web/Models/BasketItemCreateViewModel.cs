@@ -1,9 +1,9 @@
 ﻿namespace Web.Models
 {
-    public class BasketItemViewModel
+    public class BasketItemCreateViewModel
     {
         public int Id { get; set; }
-        public ProductViewModel Product { get; set; }
+        public int ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
     }

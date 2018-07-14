@@ -10,6 +10,8 @@ namespace Web.Automapper
         {
             CreateMap<Basket, BasketViewModel>();
             CreateMap<BasketItem, BasketItemViewModel>();
+            CreateMap<Product, ProductViewModel>();
+            CreateMap<ProductType, ProductTypeViewModel>();
         }
     }
 }

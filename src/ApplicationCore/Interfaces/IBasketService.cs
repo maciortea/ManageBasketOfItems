@@ -1,18 +1,16 @@
 ﻿using ApplicationCore.Entities;
 using CSharpFunctionalExtensions;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Interfaces
 {
     public interface IBasketService
     {
-        Task<Result<Basket>> GetBasketById(int basketId);
-        Task<Basket> GetBasketByUserName(string userName);
-        Task<Result<IReadOnlyCollection<BasketItem>>> GetBasketItems(int basketId);
+        Task AddBasket(Basket basket);
+        Task<Basket> GetBasketByUserId(string userId);
         Task<Result> AddItemToBasket(int basketId, int productId, int quantity, decimal unitPrice);
-        Task<Result> RemoveItemFromBasket(int basketId, int basketItemId);
-        Task<Result> ClearAllItems(int basketId);
-        Task<Result> ChangeItemQuantity(int basketId, int basketItemId, int quantity);
+        Task<Result> RemoveItemFromBasket(string userId, int basketItemId);
+        Task<Result> ClearAllItems(string userId);
+        Task<Result> ChangeItemQuantity(string userId, int basketItemId, int quantity);
     }
 }

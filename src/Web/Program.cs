@@ -37,6 +37,7 @@ namespace Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("https://0.0.0.0:44301")
                 .UseStartup<Startup>();
     }
 }

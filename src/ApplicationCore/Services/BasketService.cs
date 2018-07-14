@@ -2,7 +2,6 @@
 using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using CSharpFunctionalExtensions;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,35 +18,14 @@ namespace ApplicationCore.Services
             _basketRepository = basketRepository;
         }
 
-        public async Task<Result<Basket>> GetBasketById(int basketId)
+        public async Task AddBasket(Basket basket)
         {
-            Basket basket = await _basketRepository.GetByIdAsync(basketId);
-            if (basket == null)
-            {
-                var message = string.Format(ErrorMessage.BasketDoesntExists, basketId);
-                _logger.LogInformation(message);
-                return Result.Fail<Basket>(message);
-            }
-
-            return Result.Ok(basket);
+            await _basketRepository.AddAsync(basket);
         }
 
-        public async Task<Basket> GetBasketByUserName(string userName)
+        public async Task<Basket> GetBasketByUserId(string userId)
         {
-            return await _basketRepository.GetByUserName(userName);
-        }
-
-        public async Task<Result<IReadOnlyCollection<BasketItem>>> GetBasketItems(int basketId)
-        {
-            Basket basket = await _basketRepository.GetByIdAsync(basketId);
-            if (basket == null)
-            {
-                var message = string.Format(ErrorMessage.BasketDoesntExists, basketId);
-                _logger.LogInformation(message);
-                return Result.Fail<IReadOnlyCollection<BasketItem>>(message);
-            }
-
-            return Result.Ok(basket.Items);
+            return await _basketRepository.GetByUserId(userId);
         }
 
         public async Task<Result> AddItemToBasket(int basketId, int productId, int quantity, decimal unitPrice)
@@ -55,7 +33,7 @@ namespace ApplicationCore.Services
             Basket basket = await _basketRepository.GetByIdAsync(basketId);
             if (basket == null)
             {
-                var message = string.Format(ErrorMessage.BasketDoesntExists, basketId);
+                var message = string.Format(ErrorMessage.BasketWithIdDoesntExists, basketId);
                 _logger.LogInformation(message);
                 return Result.Fail(message);
             }
@@ -65,12 +43,12 @@ namespace ApplicationCore.Services
             return Result.Ok();
         }
 
-        public async Task<Result> RemoveItemFromBasket(int basketId, int basketItemId)
+        public async Task<Result> RemoveItemFromBasket(string userId, int basketItemId)
         {
-            Basket basket = await _basketRepository.GetByIdAsync(basketId);
+            Basket basket = await _basketRepository.GetByUserId(userId);
             if (basket == null)
             {
-                var message = string.Format(ErrorMessage.BasketDoesntExists, basketId);
+                var message = string.Format(ErrorMessage.UserDoesntHaveBasket, userId);
                 _logger.LogInformation(message);
                 return Result.Fail(message);
             }
@@ -80,12 +58,12 @@ namespace ApplicationCore.Services
             return result;
         }
 
-        public async Task<Result> ClearAllItems(int basketId)
+        public async Task<Result> ClearAllItems(string userId)
         {
-            Basket basket = await _basketRepository.GetByIdAsync(basketId);
+            Basket basket = await _basketRepository.GetByUserId(userId);
             if (basket == null)
             {
-                var message = string.Format(ErrorMessage.BasketDoesntExists, basketId);
+                var message = string.Format(ErrorMessage.UserDoesntHaveBasket, userId);
                 _logger.LogInformation(message);
                 return Result.Fail(message);
             }
@@ -95,12 +73,12 @@ namespace ApplicationCore.Services
             return Result.Ok();
         }
 
-        public async Task<Result> ChangeItemQuantity(int basketId, int basketItemId, int quantity)
+        public async Task<Result> ChangeItemQuantity(string userId, int basketItemId, int quantity)
         {
-            Basket basket = await _basketRepository.GetByIdAsync(basketId);
+            Basket basket = await _basketRepository.GetByUserId(userId);
             if (basket == null)
             {
-                var message = string.Format(ErrorMessage.BasketDoesntExists, basketId);
+                var message = string.Format(ErrorMessage.UserDoesntHaveBasket, userId);
                 _logger.LogInformation(message);
                 return Result.Fail(message);
             }
@@ -108,7 +86,7 @@ namespace ApplicationCore.Services
             BasketItem item = basket.Items.FirstOrDefault(i => i.Id == basketItemId);
             if (item == null)
             {
-                var message = string.Format(ErrorMessage.BasketItemDoesntExists, basketItemId);
+                var message = string.Format(ErrorMessage.BasketWithItemIdDoesntExists, basketItemId);
                 _logger.LogInformation(message);
                 return Result.Fail(message);
             }

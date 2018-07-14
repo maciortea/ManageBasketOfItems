@@ -5,7 +5,7 @@ namespace ApplicationCore.Entities
     public class Product : BaseEntity
     {
         private string _name;
-        private int _productId;
+        private int _productTypeId;
 
         public string Name
         {
@@ -19,11 +19,11 @@ namespace ApplicationCore.Entities
 
         public int ProductTypeId
         {
-            get => _productId;
+            get => _productTypeId;
             set
             {
                 Contract.Require(value > 0, "Product type id must be greater than 0");
-                _productId = value;
+                _productTypeId = value;
             }
         }
 

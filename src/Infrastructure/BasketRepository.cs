@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -12,14 +13,14 @@ namespace Infrastructure
         {
         }
 
-        public async Task<Basket> GetByIdAsync(int basketId)
+        public async Task<Basket> GetByIdAsync(int id)
         {
-            return await _dbContext.Baskets.Include(b => b.Items).SingleOrDefaultAsync(b => b.Id == basketId);
+            return await GetBasketQuery().SingleOrDefaultAsync(b => b.Id == id);
         }
 
-        public async Task<Basket> GetByUserName(string userName)
+        public async Task<Basket> GetByUserId(string userId)
         {
-            return await _dbContext.Baskets.Include(b => b.Items).SingleOrDefaultAsync(b => b.UserId == userName);
+            return await GetBasketQuery().SingleOrDefaultAsync(b => b.UserId == userId);
         }
 
         public async Task AddAsync(Basket basket)
@@ -32,6 +33,14 @@ namespace Infrastructure
         {
             _dbContext.Entry(basket).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
+        }
+
+        private IQueryable<Basket> GetBasketQuery()
+        {
+            return _dbContext.Baskets
+                .Include(b => b.Items)
+                    .ThenInclude(i => i.Product)
+                        .ThenInclude(p => p.ProductType);
         }
     }
 }

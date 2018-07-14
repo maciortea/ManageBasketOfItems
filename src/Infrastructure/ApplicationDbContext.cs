@@ -21,6 +21,7 @@ namespace Infrastructure
             base.OnModelCreating(builder);
 
             builder.Entity<Basket>(ConfigureBasket);
+            builder.Entity<BasketItem>(ConfigureBasketItem);
             builder.Entity<Product>(ConfigureProduct);
             builder.Entity<ProductType>(ConfigureProductType);
         }
