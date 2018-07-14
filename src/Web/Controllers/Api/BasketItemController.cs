@@ -53,7 +53,7 @@ namespace Web.Controllers.Api
                 return BadRequest(priceResult.Error);
             }
 
-            Result result = await _basketService.AddItemToBasket(basket.Id, model.ProductId, model.Quantity, priceResult.Value);
+            Result result = await _basketService.AddItemToBasketAsync(basket.Id, model.ProductId, model.Quantity, priceResult.Value);
             if (result.IsFailure)
             {
                 return NotFound(result.Error);
@@ -64,7 +64,7 @@ namespace Web.Controllers.Api
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveItemFromBasket(int id)
         {
-            Result result = await _basketService.RemoveItemFromBasket(User.Identity.Name, id);
+            Result result = await _basketService.RemoveItemFromBasketAsync(User.Identity.Name, id);
             if (result.IsFailure)
             {
                 return NotFound(result.Error);
@@ -75,7 +75,7 @@ namespace Web.Controllers.Api
         [HttpDelete]
         public async Task<IActionResult> ClearAllItems()
         {
-            Result result = await _basketService.ClearAllItems(User.Identity.Name);
+            Result result = await _basketService.ClearAllItemsAsync(User.Identity.Name);
             if (result.IsFailure)
             {
                 return NotFound(result.Error);
@@ -86,7 +86,7 @@ namespace Web.Controllers.Api
         [HttpPut("{id}")]
         public async Task<IActionResult> ChangeItemQuantity(int id, [FromBody] int quantity)
         {
-            Result result = await _basketService.ChangeItemQuantity(User.Identity.Name, id, quantity);
+            Result result = await _basketService.ChangeItemQuantityAsync(User.Identity.Name, id, quantity);
             if (result.IsFailure)
             {
                 return NotFound(result.Error);

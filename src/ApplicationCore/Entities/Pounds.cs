@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using ApplicationCore.Common;
 using CSharpFunctionalExtensions;
 
 namespace ApplicationCore.Entities
 {
     public class Pounds : ValueObject
     {
-        private const decimal MaxPoundAmount = 1_000_000;
+        public const decimal MaxPoundAmount = 1_000_000;
 
         public decimal Value { get; }
 
@@ -20,17 +21,17 @@ namespace ApplicationCore.Entities
         {
             if (poundAmount < 0)
             {
-                return Result.Fail<Pounds>("Pound amount cannot be negative");
+                return Result.Fail<Pounds>(ErrorMessage.AmountCanotBeNegative);
             }
 
             if (poundAmount > MaxPoundAmount)
             {
-                return Result.Fail<Pounds>("Pound amount cannot be greater than " + MaxPoundAmount);
+                return Result.Fail<Pounds>(string.Format(ErrorMessage.AmountCannotBeGreaterThan, MaxPoundAmount));
             }
 
             if (poundAmount % 0.01m > 0)
             {
-                return Result.Fail<Pounds>("Pound amount cannot contain part of a penny");
+                return Result.Fail<Pounds>(ErrorMessage.AmountCannotBePartOfPenny);
             }
 
             return Result.Ok(new Pounds(poundAmount));

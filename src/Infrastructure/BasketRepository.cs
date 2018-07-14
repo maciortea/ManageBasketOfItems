@@ -15,12 +15,12 @@ namespace Infrastructure
 
         public async Task<Basket> GetByIdAsync(int id)
         {
-            return await GetBasketQuery().SingleOrDefaultAsync(b => b.Id == id);
+            return await GetBasketWithAllIncludesQuery().SingleOrDefaultAsync(b => b.Id == id);
         }
 
-        public async Task<Basket> GetByUserId(string userId)
+        public async Task<Basket> GetByUserIdAsync(string userId)
         {
-            return await GetBasketQuery().SingleOrDefaultAsync(b => b.UserId == userId);
+            return await GetBasketWithAllIncludesQuery().SingleOrDefaultAsync(b => b.UserId == userId);
         }
 
         public async Task AddAsync(Basket basket)
@@ -35,7 +35,7 @@ namespace Infrastructure
             await _dbContext.SaveChangesAsync();
         }
 
-        private IQueryable<Basket> GetBasketQuery()
+        private IQueryable<Basket> GetBasketWithAllIncludesQuery()
         {
             return _dbContext.Baskets
                 .Include(b => b.Items)

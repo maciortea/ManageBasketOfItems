@@ -48,10 +48,8 @@ namespace Web
                 });
 
             services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
-            services.AddScoped(typeof(IBasketItemRepository), typeof(BasketItemRepository));
             services.AddScoped(typeof(IBasketService), typeof(BasketService));
             services.AddScoped(typeof(IBasketViewModelService), typeof(BasketViewModelService));
-
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
             services.Configure<CookiePolicyOptions>(options =>

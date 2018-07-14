@@ -4,6 +4,8 @@ namespace ApplicationCore.Entities
 {
     public class BasketItem : BaseEntity
     {
+        public const int MaxQuantity = 100;
+
         public int ProductId { get; private set; }
         public Product Product { get; private set; }
         public int Quantity { get; private set; }
@@ -15,10 +17,10 @@ namespace ApplicationCore.Entities
 
         public BasketItem(int productId, int quantity, Pounds unitPriceInPounds)
         {
-            Contract.Require(productId > 0, "Product id must be greater than 0");
-            Contract.Require(quantity > 0, "Quantity must be greater than 0");
-            Contract.Require(unitPriceInPounds != null, "Price is required");
-            Contract.Require(!unitPriceInPounds.IsZero, "Price cannot be 0");
+            Contract.Require(productId > 0, ErrorMessage.ProductIdGreaterThanZero);
+            Contract.Require(quantity > 0, ErrorMessage.QuantityGreaterThanZero);
+            Contract.Require(unitPriceInPounds != null, ErrorMessage.PriceRequired);
+            Contract.Require(!unitPriceInPounds.IsZero, ErrorMessage.PriceCannotBeZero);
 
             ProductId = productId;
             Quantity = quantity;
@@ -27,7 +29,7 @@ namespace ApplicationCore.Entities
 
         public void ChangeQuantity(int quantity)
         {
-            Contract.Require(quantity > 0, "Quantity must be greater than 0");
+            Contract.Require(quantity > 0, ErrorMessage.QuantityGreaterThanZero);
             Quantity = quantity;
         }
     }

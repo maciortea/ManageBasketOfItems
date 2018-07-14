@@ -20,7 +20,7 @@ namespace Web.Services
 
         public async Task<BasketViewModel> GetOrCreateBasketForUserAsync(string userName)
         {
-            Basket basket = await _basketService.GetBasketByUserId(userName);
+            Basket basket = await _basketService.GetBasketByUserIdAsync(userName);
             if (basket == null)
             {
                 return await CreateBasketForUserAsync(userName);
@@ -31,7 +31,7 @@ namespace Web.Services
         private async Task<BasketViewModel> CreateBasketForUserAsync(string userId)
         {
             var basket = new Basket { UserId = userId };
-            await _basketService.AddBasket(basket);
+            await _basketService.AddBasketAsync(basket);
 
             return new BasketViewModel
             {

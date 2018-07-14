@@ -18,17 +18,17 @@ namespace ApplicationCore.Services
             _basketRepository = basketRepository;
         }
 
-        public async Task AddBasket(Basket basket)
+        public async Task AddBasketAsync(Basket basket)
         {
             await _basketRepository.AddAsync(basket);
         }
 
-        public async Task<Basket> GetBasketByUserId(string userId)
+        public async Task<Basket> GetBasketByUserIdAsync(string userId)
         {
-            return await _basketRepository.GetByUserId(userId);
+            return await _basketRepository.GetByUserIdAsync(userId);
         }
 
-        public async Task<Result> AddItemToBasket(int basketId, int productId, int quantity, Pounds unitPriceInPounds)
+        public async Task<Result> AddItemToBasketAsync(int basketId, int productId, int quantity, Pounds unitPriceInPounds)
         {
             Basket basket = await _basketRepository.GetByIdAsync(basketId);
             if (basket == null)
@@ -43,9 +43,9 @@ namespace ApplicationCore.Services
             return Result.Ok();
         }
 
-        public async Task<Result> RemoveItemFromBasket(string userId, int basketItemId)
+        public async Task<Result> RemoveItemFromBasketAsync(string userId, int basketItemId)
         {
-            Basket basket = await _basketRepository.GetByUserId(userId);
+            Basket basket = await _basketRepository.GetByUserIdAsync(userId);
             if (basket == null)
             {
                 var message = string.Format(ErrorMessage.UserDoesntHaveBasket, userId);
@@ -58,9 +58,9 @@ namespace ApplicationCore.Services
             return result;
         }
 
-        public async Task<Result> ClearAllItems(string userId)
+        public async Task<Result> ClearAllItemsAsync(string userId)
         {
-            Basket basket = await _basketRepository.GetByUserId(userId);
+            Basket basket = await _basketRepository.GetByUserIdAsync(userId);
             if (basket == null)
             {
                 var message = string.Format(ErrorMessage.UserDoesntHaveBasket, userId);
@@ -73,9 +73,9 @@ namespace ApplicationCore.Services
             return Result.Ok();
         }
 
-        public async Task<Result> ChangeItemQuantity(string userId, int basketItemId, int quantity)
+        public async Task<Result> ChangeItemQuantityAsync(string userId, int basketItemId, int quantity)
         {
-            Basket basket = await _basketRepository.GetByUserId(userId);
+            Basket basket = await _basketRepository.GetByUserIdAsync(userId);
             if (basket == null)
             {
                 var message = string.Format(ErrorMessage.UserDoesntHaveBasket, userId);

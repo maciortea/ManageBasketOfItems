@@ -6,11 +6,11 @@ namespace ApplicationCore.Interfaces
 {
     public interface IBasketService
     {
-        Task AddBasket(Basket basket);
-        Task<Basket> GetBasketByUserId(string userId);
-        Task<Result> AddItemToBasket(int basketId, int productId, int quantity, Pounds unitPriceInPounds);
-        Task<Result> RemoveItemFromBasket(string userId, int basketItemId);
-        Task<Result> ClearAllItems(string userId);
-        Task<Result> ChangeItemQuantity(string userId, int basketItemId, int quantity);
+        Task AddBasketAsync(Basket basket);
+        Task<Basket> GetBasketByUserIdAsync(string userId);
+        Task<Result> AddItemToBasketAsync(int basketId, int productId, int quantity, Pounds unitPriceInPounds);
+        Task<Result> RemoveItemFromBasketAsync(string userId, int basketItemId);
+        Task<Result> ClearAllItemsAsync(string userId);
+        Task<Result> ChangeItemQuantityAsync(string userId, int basketItemId, int quantity);
     }
 }
