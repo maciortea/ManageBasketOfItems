@@ -4,15 +4,16 @@ namespace ApplicationCore.Entities
 {
     public class ProductType : BaseEntity
     {
-        private string _type;
-        public string Type
+        public string Type { get; private set; }
+
+        private ProductType()
         {
-            get => _type;
-            set
-            {
-                Contract.Require(!string.IsNullOrWhiteSpace(value), "Product type is required");
-                _type = value;
-            }
+        }
+
+        public ProductType(string type)
+        {
+            Contract.Require(!string.IsNullOrWhiteSpace(type), "Product type is required");
+            Type = type;
         }
     }
 }

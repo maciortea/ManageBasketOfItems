@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using AutoMapper;
 using CSharpFunctionalExtensions;
@@ -39,8 +40,20 @@ namespace Web.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> AddItemToBasket(BasketItemCreateViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid model");
+            }
+
             BasketViewModel basket = await _basketViewModelService.GetOrCreateBasketForUserAsync(User.Identity.Name);
-            Result result = await _basketService.AddItemToBasket(basket.Id, model.ProductId, model.Quantity, model.UnitPrice);
+
+            var priceResult = Pounds.Create(model.UnitPriceInPounds);
+            if (priceResult.IsFailure)
+            {
+                return BadRequest(priceResult.Error);
+            }
+
+            Result result = await _basketService.AddItemToBasket(basket.Id, model.ProductId, model.Quantity, priceResult.Value);
             if (result.IsFailure)
             {
                 return NotFound(result.Error);

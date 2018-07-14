@@ -4,29 +4,21 @@ namespace ApplicationCore.Entities
 {
     public class Product : BaseEntity
     {
-        private string _name;
-        private int _productTypeId;
+        public string Name { get; private set; }
+        public int ProductTypeId { get; private set; }
+        public ProductType ProductType { get; private set; }
 
-        public string Name
+        private Product()
         {
-            get => _name;
-            set
-            {
-                Contract.Require(!string.IsNullOrWhiteSpace(value), "Product name is required");
-                _name = value;
-            }
         }
 
-        public int ProductTypeId
+        public Product(string name, int productTypeId)
         {
-            get => _productTypeId;
-            set
-            {
-                Contract.Require(value > 0, "Product type id must be greater than 0");
-                _productTypeId = value;
-            }
-        }
+            Contract.Require(!string.IsNullOrWhiteSpace(name), "Product name is required");
+            Contract.Require(productTypeId > 0, "Product type id must be greater than 0");
 
-        public ProductType ProductType { get; set; }
+            Name = name;
+            ProductTypeId = productTypeId;
+        }
     }
 }

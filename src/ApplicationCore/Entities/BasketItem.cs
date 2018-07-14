@@ -4,43 +4,30 @@ namespace ApplicationCore.Entities
 {
     public class BasketItem : BaseEntity
     {
-        private int _productId;
-        private int _quantity;
-        private decimal _unitPrice;
+        public int ProductId { get; private set; }
+        public Product Product { get; private set; }
+        public int Quantity { get; private set; }
+        public Pounds UnitPriceInPounds { get; private set; }
 
-        public int ProductId
+        private BasketItem()
         {
-            get => _productId;
-            set
-            {
-                Contract.Require(value > 0, "Product id must be greater than 0");
-                _productId = value;
-            }
-        }
-        public int Quantity
-        {
-            get => _quantity;
-            set
-            {
-                Contract.Require(value > 0, "Quantity must be greater than 0");
-                _quantity = value;
-            }
         }
 
-        public decimal UnitPrice
+        public BasketItem(int productId, int quantity, Pounds unitPriceInPounds)
         {
-            get => _unitPrice;
-            set
-            {
-                Contract.Require(value > 0m, "Price must be greater than 0");
-                _unitPrice = value;
-            }
-        }
+            Contract.Require(productId > 0, "Product id must be greater than 0");
+            Contract.Require(quantity > 0, "Quantity must be greater than 0");
+            Contract.Require(unitPriceInPounds != null, "Price is required");
+            Contract.Require(!unitPriceInPounds.IsZero, "Price cannot be 0");
 
-        public Product Product { get; set; }
+            ProductId = productId;
+            Quantity = quantity;
+            UnitPriceInPounds = unitPriceInPounds;
+        }
 
         public void ChangeQuantity(int quantity)
         {
+            Contract.Require(quantity > 0, "Quantity must be greater than 0");
             Quantity = quantity;
         }
     }

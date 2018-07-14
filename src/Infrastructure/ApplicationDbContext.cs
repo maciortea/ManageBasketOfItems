@@ -21,6 +21,7 @@ namespace Infrastructure
             base.OnModelCreating(builder);
 
             builder.Entity<Basket>(ConfigureBasket);
+            builder.Entity<Pounds>(ConfigurePounds);
             builder.Entity<BasketItem>(ConfigureBasketItem);
             builder.Entity<Product>(ConfigureProduct);
             builder.Entity<ProductType>(ConfigureProductType);
@@ -34,13 +35,20 @@ namespace Infrastructure
             navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
         }
 
+        private void ConfigurePounds(EntityTypeBuilder<Pounds> builder)
+        {
+            builder.Property(p => p.Value).UsePropertyAccessMode(PropertyAccessMode.Field);
+        }
+
         private void ConfigureBasketItem(EntityTypeBuilder<BasketItem> builder)
         {
-            builder.HasKey(p => p.Id);
+            builder.HasKey(i => i.Id);
 
-            builder.HasOne(p => p.Product)
+            builder.OwnsOne(i => i.UnitPriceInPounds);
+
+            builder.HasOne(i => i.Product)
                 .WithMany()
-                .HasForeignKey(p => p.ProductId);
+                .HasForeignKey(i => i.ProductId);
         }
 
         private void ConfigureProduct(EntityTypeBuilder<Product> builder)

@@ -36,16 +36,16 @@ namespace Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Invalid model.");
+                return BadRequest("Invalid model");
             }
 
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
             var createResult = await _userManager.CreateAsync(user, model.Password);
             if (!createResult.Succeeded)
             {
-                return BadRequest("Failed to register.");
+                return BadRequest("Failed to register");
             }
-            return Ok("User registered succesfully.");
+            return Ok("User registered succesfully");
         }
 
         [HttpPost("token")]
@@ -53,19 +53,19 @@ namespace Web.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Invalid model.");
+                return BadRequest("Invalid model");
             }
 
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                return BadRequest("User does not exist.");
+                return BadRequest("User does not exist");
             }
 
             var signInResult = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
             if (!signInResult.Succeeded)
             {
-                return BadRequest("Invalid e-mail or password.");
+                return BadRequest("Invalid e-mail or password");
             }
 
             var tokenKey = _config["Tokens:Key"];

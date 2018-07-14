@@ -1,10 +1,16 @@
-﻿namespace Web.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Web.Models
 {
     public class BasketItemCreateViewModel
     {
-        public int Id { get; set; }
+        [Required]
         public int ProductId { get; set; }
+
+        [Required]
         public int Quantity { get; set; }
-        public decimal UnitPrice { get; set; }
+
+        [Required]
+        public decimal UnitPriceInPounds { get; set; }
     }
 }
