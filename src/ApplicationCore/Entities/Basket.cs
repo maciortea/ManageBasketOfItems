@@ -16,7 +16,7 @@ namespace ApplicationCore.Entities
         {
         }
 
-        public void AddItem(int productId, int quantity, Pounds priceInPounds)
+        public virtual void AddItem(int productId, int quantity, Pounds priceInPounds)
         {
             bool itemAlreadyExists = _items.Any(i => i.ProductId == productId);
             if (!itemAlreadyExists)
@@ -32,7 +32,7 @@ namespace ApplicationCore.Entities
             }
         }
 
-        public Result RemoveItem(int itemId)
+        public virtual Result RemoveItem(int itemId)
         {
             BasketItem item = _items.FirstOrDefault(i => i.Id == itemId);
             if (item == null)
@@ -45,7 +45,7 @@ namespace ApplicationCore.Entities
             return Result.Ok();
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             _items.Clear();
         }
