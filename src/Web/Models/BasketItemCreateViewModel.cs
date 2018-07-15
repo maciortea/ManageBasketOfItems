@@ -15,6 +15,6 @@ namespace Web.Models
 
         [Required]
         [Range(1, (double)Pounds.MaxPoundAmount)]
-        public decimal UnitPriceInPounds { get; set; }
+        public decimal PriceInPounds { get; set; }
     }
 }

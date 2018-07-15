@@ -44,7 +44,7 @@ namespace Infrastructure
         {
             builder.HasKey(i => i.Id);
 
-            builder.OwnsOne(i => i.UnitPriceInPounds);
+            builder.OwnsOne(i => i.PriceInPounds);
 
             builder.HasOne(i => i.Product)
                 .WithMany()

@@ -28,7 +28,7 @@ namespace ApplicationCore.Services
             return await _basketRepository.GetByUserIdAsync(userId);
         }
 
-        public async Task<Result> AddItemToBasketAsync(int basketId, int productId, int quantity, Pounds unitPriceInPounds)
+        public async Task<Result> AddItemToBasketAsync(int basketId, int productId, int quantity, Pounds priceInPounds)
         {
             Basket basket = await _basketRepository.GetByIdAsync(basketId);
             if (basket == null)
@@ -38,7 +38,7 @@ namespace ApplicationCore.Services
                 return Result.Fail(message);
             }
 
-            basket.AddItem(productId, quantity, unitPriceInPounds);
+            basket.AddItem(productId, quantity, priceInPounds);
             await _basketRepository.UpdateAsync(basket);
             return Result.Ok();
         }

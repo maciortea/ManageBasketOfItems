@@ -16,12 +16,12 @@ namespace ApplicationCore.Entities
         {
         }
 
-        public void AddItem(int productId, int quantity, Pounds unitPriceInPounds)
+        public void AddItem(int productId, int quantity, Pounds priceInPounds)
         {
             bool itemAlreadyExists = _items.Any(i => i.ProductId == productId);
             if (!itemAlreadyExists)
             {
-                var basketItem = new BasketItem(productId, quantity, unitPriceInPounds);
+                var basketItem = new BasketItem(productId, quantity, priceInPounds);
                 _items.Add(basketItem);
             }
             else

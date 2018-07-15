@@ -47,7 +47,7 @@ namespace Web.Controllers.Api
 
             BasketViewModel basket = await _basketViewModelService.GetOrCreateBasketForUserAsync(User.Identity.Name);
 
-            var priceResult = Pounds.Create(model.UnitPriceInPounds);
+            var priceResult = Pounds.Create(model.PriceInPounds);
             if (priceResult.IsFailure)
             {
                 return BadRequest(priceResult.Error);
