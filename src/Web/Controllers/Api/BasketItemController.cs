@@ -30,13 +30,6 @@ namespace Web.Controllers.Api
             _basketViewModelService = basketViewModelService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetBasketItems()
-        {
-            BasketViewModel basket = await _basketViewModelService.GetOrCreateBasketForUserAsync(User.Identity.Name);
-            return Ok(basket.Items);
-        }
-
         [HttpPost]
         public async Task<IActionResult> AddItemToBasket(BasketItemCreateViewModel model)
         {
