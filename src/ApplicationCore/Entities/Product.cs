@@ -14,8 +14,8 @@ namespace ApplicationCore.Entities
 
         public Product(string name, int productTypeId)
         {
-            Contract.Require(!string.IsNullOrWhiteSpace(name), "Product name is required");
-            Contract.Require(productTypeId > 0, "Product type id must be greater than 0");
+            Contract.Require(!string.IsNullOrWhiteSpace(name), ErrorMessage.ProductNameRequired);
+            Contract.Require(productTypeId > 0, ErrorMessage.ProductTypeIdGreaterThanZero);
 
             Name = name;
             ProductTypeId = productTypeId;

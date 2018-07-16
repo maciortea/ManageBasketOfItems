@@ -12,7 +12,7 @@ namespace ApplicationCore.Entities
 
         public ProductType(string type)
         {
-            Contract.Require(!string.IsNullOrWhiteSpace(type), "Product type is required");
+            Contract.Require(!string.IsNullOrWhiteSpace(type), ErrorMessage.ProductTypeRequired);
             Type = type;
         }
     }

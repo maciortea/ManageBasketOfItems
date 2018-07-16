@@ -7,13 +7,14 @@ namespace ApplicationCore.Entities
 {
     public class Basket : BaseEntity
     {
-        private readonly List<BasketItem> _items = new List<BasketItem>();
+        private readonly List<BasketItem> _items;
         public IReadOnlyCollection<BasketItem> Items => _items.AsReadOnly();
 
         public string UserId { get; set; }
 
         public Basket()
         {
+            _items = new List<BasketItem>();
         }
 
         public virtual void AddItem(int productId, int quantity, Pounds priceInPounds)

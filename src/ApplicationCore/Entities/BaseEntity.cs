@@ -10,7 +10,7 @@ namespace ApplicationCore.Entities
             get => _id;
             set
             {
-                Contract.Require(value > 0, "Id must be greater than 0");
+                Contract.Require(value > 0, ErrorMessage.IdGreaterThanZero);
                 _id = value;
             }
         }

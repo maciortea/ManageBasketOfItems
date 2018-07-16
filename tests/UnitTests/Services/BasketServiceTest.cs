@@ -3,13 +3,11 @@ using ApplicationCore.Interfaces;
 using ApplicationCore.Services;
 using CSharpFunctionalExtensions;
 using Moq;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace UnitTests
+namespace UnitTests.Services
 {
     public class BasketServiceTest
     {
@@ -52,7 +50,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void AddItemToBasketAsync_InexistentBasket_ShouldReturnFailure()
+        public void AddItemToBasketAsync_WithNonExistentBasket_ShouldReturnFailure()
         {
             // Arrange
             _basketRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Basket>(null));
@@ -65,7 +63,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void AddItemToBasketAsync_ExistentBasket_ShouldCallUpdateInRepository()
+        public void AddItemToBasketAsync_WithExistentBasket_ShouldCallUpdateInRepository()
         {
             // Arrange
             var basket = new Basket();
@@ -80,7 +78,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void AddItemToBasketAsync_ExistentBasket_ShouldReturnSuccess()
+        public void AddItemToBasketAsync_WithExistentBasket_ShouldReturnSuccess()
         {
             // Arrange
             var basket = new Basket();
@@ -94,7 +92,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void RemoveItemFromBasketAsync_InexistentBasket_ShouldReturnFailure()
+        public void RemoveItemFromBasketAsync_WithNonExistentBasket_ShouldReturnFailure()
         {
             // Arrange
             _basketRepositoryMock.Setup(x => x.GetByUserIdAsync(It.IsAny<string>())).Returns(Task.FromResult<Basket>(null));
@@ -107,7 +105,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void RemoveItemFromBasketAsync_ExistentBasket_ShouldCallUpdateInRepository()
+        public void RemoveItemFromBasketAsync_WithExistentBasket_ShouldCallUpdateInRepository()
         {
             // Arrange
             var basket = new Basket();
@@ -122,7 +120,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void RemoveItemFromBasketAsync_ExistentBasket_ShouldReturnSuccess()
+        public void RemoveItemFromBasketAsync_WithExistentBasket_ShouldReturnSuccess()
         {
             // Arrange
             var basketMock = new Mock<Basket>();
@@ -137,7 +135,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void ClearAllItemsAsync_InexistentBasket_ShouldReturnFailure()
+        public void ClearAllItemsAsync_WithNonExistentBasket_ShouldReturnFailure()
         {
             // Arrange
             _basketRepositoryMock.Setup(x => x.GetByUserIdAsync(It.IsAny<string>())).Returns(Task.FromResult<Basket>(null));
@@ -150,7 +148,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void ClearAllItemsAsync_ExistentBasket_ShouldCallUpdateInRepository()
+        public void ClearAllItemsAsync_WithExistentBasket_ShouldCallUpdateInRepository()
         {
             // Arrange
             var basket = new Basket();
@@ -165,7 +163,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void ClearAllItemsAsync_ExistentBasket_ShouldReturnSuccess()
+        public void ClearAllItemsAsync_WithExistentBasket_ShouldReturnSuccess()
         {
             // Arrange
             _basketRepositoryMock.Setup(x => x.GetByUserIdAsync(It.IsAny<string>())).Returns(Task.FromResult(new Basket()));
@@ -178,7 +176,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void ChangeItemQuantityAsync_InexistentBasket_ShouldReturnFailure()
+        public void ChangeItemQuantityAsync_WithNonExistentBasket_ShouldReturnFailure()
         {
             // Arrange
             _basketRepositoryMock.Setup(x => x.GetByUserIdAsync(It.IsAny<string>())).Returns(Task.FromResult<Basket>(null));
@@ -191,7 +189,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void ChangeItemQuantityAsync_InexistentBasketItem_ShouldReturnFailure()
+        public void ChangeItemQuantityAsync_WithNonExistentBasketItem_ShouldReturnFailure()
         {
             // Arrange
             _basketRepositoryMock.Setup(x => x.GetByUserIdAsync(It.IsAny<string>())).Returns(Task.FromResult(new Basket()));
@@ -204,7 +202,7 @@ namespace UnitTests
         }
 
         [Fact]
-        public void ChangeItemQuantityAsync_ExistentBasketItem_ShouldCallUpdateInRepository()
+        public void ChangeItemQuantityAsync_WithExistentBasketItem_ShouldCallUpdateInRepository()
         {
             // Arrange
             var basket = new Basket();
@@ -220,7 +218,7 @@ namespace UnitTests
             _basketRepositoryMock.Verify(x => x.UpdateAsync(basket), Times.Once);
         }
         [Fact]
-        public void ChangeItemQuantityAsync_ExistentBasketItem_ShouldReturnSuccess()
+        public void ChangeItemQuantityAsync_WithExistentBasketItem_ShouldReturnSuccess()
         {
             // Arrange
             var basket = new Basket();
