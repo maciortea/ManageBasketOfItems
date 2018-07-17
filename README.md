@@ -1,5 +1,6 @@
 # ManageBasketOfItems
-This API will allow users to set up and manage an order of items.
+This API will allow users to set up and manage an order of items. <br />
+When starting the Web project it will seed some sample data in memory. You can modify these data in Infrastructure/ApplicationDbContextSeed.
 
 API | Description | Request headers | Request body | Response body
 --- | ----------- | --------------- | ------------ | -------------
