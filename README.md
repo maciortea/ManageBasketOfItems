@@ -3,7 +3,7 @@ This API will allow users to set up and manage an order of items.
 
 First Header | Second Header | Third header
 ------------ | ------------- | ------------
-Content from cell 1 | Content from cell 2 | asd
+POST /api/account/register | Create a new user | None
 Content in the first column | Content in the second column | asd
 
 Description <br />
