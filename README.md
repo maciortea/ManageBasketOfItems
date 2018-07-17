@@ -1,6 +1,11 @@
 # ManageBasketOfItems
 This API will allow users to set up and manage an order of items.
 
+First Header | Second Header
+------------ | -------------
+Content from cell 1 | Content from cell 2
+Content in the first column | Content in the second column
+
 API description <br />
 API | Description | Request headers | Request body | Response body
 --- | ----------- | --------------- | ------------ | -------------
