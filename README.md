@@ -1,9 +1,9 @@
 # ManageBasketOfItems
 This API will allow users to set up and manage an order of items.
 
-First Header | Second Header | Third header
------------- | ------------- | ------------
-POST /api/account/register | Create a new user | None
+First Header | Second Header | Third header | Fourth | Fifth
+------------ | ------------- | ------------ | ------ | -----
+POST /api/account/register | Create a new user | None | { "email": "value", "password": "pwdValue", "confirmPassword": "pwdValue" } | None
 Content in the first column | Content in the second column | asd
 
 Description <br />
