@@ -8,7 +8,7 @@ namespace ApplicationCore.Interfaces
     {
         Task AddBasketAsync(Basket basket);
         Task<Basket> GetBasketByUserIdAsync(string userId);
-        Task<Result> AddItemToBasketAsync(int basketId, int productId, int quantity, Pounds unitPriceInPounds);
+        Task<Result<int>> AddItemToBasketAsync(int basketId, int productId, int quantity, Pounds unitPriceInPounds);
         Task<Result> RemoveItemFromBasketAsync(string userId, int basketItemId);
         Task<Result> ClearAllItemsAsync(string userId);
         Task<Result> ChangeItemQuantityAsync(string userId, int basketItemId, int quantity);

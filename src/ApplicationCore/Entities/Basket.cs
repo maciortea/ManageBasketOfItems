@@ -17,20 +17,22 @@ namespace ApplicationCore.Entities
             _items = new List<BasketItem>();
         }
 
-        public virtual void AddItem(int productId, int quantity, Pounds priceInPounds)
+        public virtual BasketItem AddItem(int productId, int quantity, Pounds priceInPounds)
         {
+            BasketItem basketItem;
             bool itemAlreadyExists = _items.Any(i => i.ProductId == productId);
             if (!itemAlreadyExists)
             {
-                var basketItem = new BasketItem(productId, quantity, priceInPounds);
+                basketItem = new BasketItem(productId, quantity, priceInPounds);
                 _items.Add(basketItem);
             }
             else
             {
-                BasketItem existingItem = _items.First(i => i.ProductId == productId);
-                int newQuantity = existingItem.Quantity + quantity;
-                existingItem.ChangeQuantity(newQuantity);
+                basketItem = _items.First(i => i.ProductId == productId);
+                int newQuantity = basketItem.Quantity + quantity;
+                basketItem.ChangeQuantity(newQuantity);
             }
+            return basketItem;
         }
 
         public virtual Result RemoveItem(int itemId)

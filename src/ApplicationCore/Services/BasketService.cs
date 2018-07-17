@@ -28,19 +28,19 @@ namespace ApplicationCore.Services
             return await _basketRepository.GetByUserIdAsync(userId);
         }
 
-        public async Task<Result> AddItemToBasketAsync(int basketId, int productId, int quantity, Pounds priceInPounds)
+        public async Task<Result<int>> AddItemToBasketAsync(int basketId, int productId, int quantity, Pounds priceInPounds)
         {
             Basket basket = await _basketRepository.GetByIdAsync(basketId);
             if (basket == null)
             {
                 var message = string.Format(ErrorMessage.BasketWithIdDoesntExists, basketId);
                 _logger.LogInformation(message);
-                return Result.Fail(message);
+                return Result.Fail<int>(message);
             }
 
-            basket.AddItem(productId, quantity, priceInPounds);
+            BasketItem basketItem = basket.AddItem(productId, quantity, priceInPounds);
             await _basketRepository.UpdateAsync(basket);
-            return Result.Ok();
+            return Result.Ok(basketItem.Id);
         }
 
         public async Task<Result> RemoveItemFromBasketAsync(string userId, int basketItemId)

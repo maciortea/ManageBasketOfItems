@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using ApplicationCore.Common;
 using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using AutoMapper;
@@ -30,6 +32,17 @@ namespace Web.Controllers.Api
             _basketViewModelService = basketViewModelService;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<BasketItemViewModel>> GetItem(int id)
+        {
+            BasketItemViewModel item = await _basketViewModelService.GetBasketItemForUserAsync(User.Identity.Name, id);
+            if (item == null)
+            {
+                return NotFound(string.Format(ErrorMessage.BasketWithItemIdDoesntExists, id));
+            }
+            return item;
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddItemToBasket(BasketItemCreateViewModel model)
         {
@@ -46,12 +59,14 @@ namespace Web.Controllers.Api
                 return BadRequest(priceResult.Error);
             }
 
-            Result result = await _basketService.AddItemToBasketAsync(basket.Id, model.ProductId, model.Quantity, priceResult.Value);
+            var result = await _basketService.AddItemToBasketAsync(basket.Id, model.ProductId, model.Quantity, priceResult.Value);
             if (result.IsFailure)
             {
                 return NotFound(result.Error);
             }
-            return Ok();
+
+            BasketItemViewModel item = await _basketViewModelService.GetBasketItemForUserAsync(User.Identity.Name, result.Value);
+            return CreatedAtAction("GetItem", new { id = item.Id }, item);
         }
 
         [HttpDelete("{id}")]

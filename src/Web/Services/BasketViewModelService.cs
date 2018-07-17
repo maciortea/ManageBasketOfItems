@@ -2,6 +2,7 @@
 using ApplicationCore.Interfaces;
 using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Web.Models;
 
@@ -26,6 +27,12 @@ namespace Web.Services
                 return await CreateBasketForUserAsync(userName);
             }
             return _mapper.Map<BasketViewModel>(basket);
+        }
+
+        public async Task<BasketItemViewModel> GetBasketItemForUserAsync(string userName, int basketItemId)
+        {
+            var basket = await GetOrCreateBasketForUserAsync(userName);
+            return basket.Items.SingleOrDefault(i => i.Id == basketItemId);
         }
 
         private async Task<BasketViewModel> CreateBasketForUserAsync(string userId)

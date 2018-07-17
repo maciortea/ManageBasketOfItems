@@ -6,5 +6,6 @@ namespace Web.Services
     public interface IBasketViewModelService
     {
         Task<BasketViewModel> GetOrCreateBasketForUserAsync(string userName);
+        Task<BasketItemViewModel> GetBasketItemForUserAsync(string userName, int basketItemId);
     }
 }

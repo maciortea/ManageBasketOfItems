@@ -7,7 +7,7 @@ namespace UnitTests.Entities
     public class BasketTest
     {
         [Fact]
-        public void AddItem_WithNonExistentBasketItem_ShouldCreateBasketItem()
+        public void AddItem_WithNonExistentBasketItem_ShouldAddItemToList()
         {
             // Arrange
             var basket = new Basket();
@@ -17,6 +17,19 @@ namespace UnitTests.Entities
 
             // Assert
             Assert.Equal(1, basket.Items.Count);
+        }
+
+        [Fact]
+        public void AddItem_WithNonExistentBasketItem_ShouldReturnNewlyCreatedItem()
+        {
+            // Arrange
+            var basket = new Basket();
+
+            // Act
+            var item = basket.AddItem(1, 1, Pounds.Of(1));
+
+            // Assert
+            Assert.NotNull(item);
         }
 
         [Fact]
