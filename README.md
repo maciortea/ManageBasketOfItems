@@ -11,11 +11,3 @@ POST /api/basket/items | Add a new basket item | Authorization: Bearer token | {
 DELETE /api/basket/items/{id} | Remove a basket item by id | Authorization: Bearer token | None | None
 DELETE /api/basket/items | Clear all items from basket | Authorization: Bearer token | None | None
 PUT /api/basket/items/{id} | Change basket item's quantity | Authorization: Bearer token | None | None
-
-Description <br />
-API | Description | Request headers | Request body | Response body
---- | ----------- | --------------- | ------------ | -------------
-
-
-
-
