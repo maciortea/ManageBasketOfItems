@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "src\Web\Web.csproj", "{036C10F5-C055-4E5F-BF89-3A1015433B8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{04C46BE2-C882-454D-9CAA-CFF0764A653A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{04C46BE2-C882-454D-9CAA-CFF0764A653A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "client", "client", "{A9671D8A-37C9-4F73-88E7-A72F57099055}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "client\ClientApp\ClientApp.csproj", "{6F7E3BA7-F262-43B6-A86C-DFCC19CB3664}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +41,10 @@ Global
 		{04C46BE2-C882-454D-9CAA-CFF0764A653A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04C46BE2-C882-454D-9CAA-CFF0764A653A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04C46BE2-C882-454D-9CAA-CFF0764A653A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F7E3BA7-F262-43B6-A86C-DFCC19CB3664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F7E3BA7-F262-43B6-A86C-DFCC19CB3664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F7E3BA7-F262-43B6-A86C-DFCC19CB3664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F7E3BA7-F262-43B6-A86C-DFCC19CB3664}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +54,7 @@ Global
 		{82CBB97C-7DFE-43AC-AF1A-31F8DB25EA56} = {09AF6E7A-657B-459A-9F23-6A104165CE7F}
 		{036C10F5-C055-4E5F-BF89-3A1015433B8E} = {09AF6E7A-657B-459A-9F23-6A104165CE7F}
 		{04C46BE2-C882-454D-9CAA-CFF0764A653A} = {8B3156BB-CFE4-4E8B-A0ED-11F74AE3C040}
+		{6F7E3BA7-F262-43B6-A86C-DFCC19CB3664} = {A9671D8A-37C9-4F73-88E7-A72F57099055}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FA12039-5B6E-4731-A0C9-F9DA50241F60}
