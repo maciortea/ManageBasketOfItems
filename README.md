@@ -3,7 +3,7 @@ This API will allow users to set up and manage an order of items.
 
 API description <br />
 API | Description | Request headers | Request body | Response body
------------- | -------------
+--- | ----------- | --------------- | ------------ | -------------
 POST /api/account/register | Create a new user | None | { "email": "value", "password": "pwdValue", "confirmPassword": "pwdValue" } | None
 POST /api/account/token | User login | None | { "email": "marian_test@yahoo.com", "password": "Pass@word1" } | Bearer token
 GET /api/basket | Get basket for logged user | Authorization: Bearer token | None | Basket
