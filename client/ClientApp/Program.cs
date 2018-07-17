@@ -12,6 +12,8 @@ namespace ClientApp
 
         static void Main(string[] args)
         {
+            // In order to run this application you need to start first the Web application
+
             string token = UserLogin().Result;
             if (token == null)
             {
